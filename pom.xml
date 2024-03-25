@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+<!--        <groupId>org.springframework.boot</groupId>-->
+        <groupId>org.springframework.cloud</groupId>
+<!--        <artifactId>spring-boot-starter-parent</artifactId>-->
+        <artifactId>spring-cloud-starter-parent</artifactId>
+<!--        <version>2.7.18</version>-->
+        <version>2021.0.9</version>
+    </parent>
+
+    <groupId>com.luxoft</groupId>
+    <artifactId>lab-01-exercise</artifactId>
+    <version>1.0</version>
+
+    <properties>
+        <java.version>11</java.version>
+
+        <checker.version>3.40.0</checker.version>
+        <annotations.version>24.1.0</annotations.version>
+        <jcip-annotations.version>1.0</jcip-annotations.version>
+        <spotbugs.version>4.8.3</spotbugs.version>
+        <error_prone_annotations.version>2.25.0</error_prone_annotations.version>
+    </properties>
+
+    <dependencies>
+        <!-- Spring MVC -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- Spring Data and DB -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Tools and utility -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--region Common Annotations (CheckerFramework, JetBrains, SpotBugs, ErrorProne) -->
+        <dependency>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>checker</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.jetbrains</groupId>
+          <artifactId>annotations</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>net.jcip</groupId>
+          <artifactId>jcip-annotations</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-annotations</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>com.google.errorprone</groupId>
+          <artifactId>error_prone_annotations</artifactId>
+        </dependency>
+        <!--endregion-->
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+      <dependencies>
+
+          <!--region Common Annotations (CheckerFramework, JetBrains, SpotBugs, ErrorProne) -->
+          <dependency>
+              <groupId>org.checkerframework</groupId>
+              <artifactId>checker</artifactId>
+              <version>${checker.version}</version>
+              <scope>provided</scope>
+          </dependency>
+          <dependency>
+              <groupId>org.jetbrains</groupId>
+              <artifactId>annotations</artifactId>
+              <version>${annotations.version}</version>
+              <scope>provided</scope>
+          </dependency>
+          <dependency>
+              <groupId>net.jcip</groupId>
+              <artifactId>jcip-annotations</artifactId>
+              <version>${jcip-annotations.version}</version>
+              <optional>true</optional>
+          </dependency>
+          <dependency>
+              <groupId>com.github.spotbugs</groupId>
+              <artifactId>spotbugs-annotations</artifactId>
+              <version>${spotbugs.version}</version>
+              <optional>true</optional>
+          </dependency>
+          <dependency>
+              <groupId>com.google.errorprone</groupId>
+              <artifactId>error_prone_annotations</artifactId>
+              <version>${error_prone_annotations.version}</version>
+              <scope>provided</scope>
+          </dependency>
+          <!--endregion-->
+
+      </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <defaultGoal>clean verify</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

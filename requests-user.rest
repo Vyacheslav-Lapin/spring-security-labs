@@ -1,0 +1,54 @@
+### All users without HTTP Basic header
+
+GET http://localhost:8090/user
+
+> {%
+client.test('Response status should be 401 without header', function () {
+    client.assert(response.status === 401, 'Response status is not 401')
+})
+%}
+
+### All users without HTTP Basic header
+
+GET http://localhost:8090/user
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+
+> {%
+client.test('Response status should be 200 with header', function () {
+    client.assert(response.status === 200, 'Response status is not 200')
+})
+%}
+
+### Get user by id
+
+GET http://localhost:8090/user/3001
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+
+### Create user
+
+POST http://localhost:8090/user
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+Content-Type: application/json
+
+{
+  "login": "new_user",
+  "password": "password",
+  "roles": [
+    "user"
+  ]
+}
+
+### Update user
+
+PUT http://localhost:8090/user
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+Content-Type: application/json
+
+{
+  "id": 3001,
+  "login": "new_login",
+  "password": "newpassword",
+  "roles": [
+    "user"
+  ]
+}

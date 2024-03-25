@@ -1,0 +1,86 @@
+### All companies (without HTTP Basic header)
+
+GET http://localhost:8090/company
+
+> {%
+client.test('Response status should be 401 without header', function () {
+    client.assert(response.status === 401, 'Response status is not 401')
+})
+%}
+
+### All companies
+
+GET http://localhost:8090/company
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+
+> {%
+client.test('Response status should be 200 with header', function () {
+    client.assert(response.status === 200, 'Response status is not 200')
+})
+%}
+
+### Specific user's companies
+
+GET http://localhost:8090/company?user-id=3001
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+
+### Get company by id
+
+GET http://localhost:8090/company/1001
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+
+### Create Company
+
+POST http://localhost:8090/company?user-id=3001
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+Content-Type: application/json
+
+{
+  "name": "Amazon"
+}
+
+### Update company
+
+PUT http://localhost:8090/company
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+Content-Type: application/json
+
+{
+  "id": 1001,
+  "name": "DXC"
+}
+
+### Get company orders
+
+GET http://localhost:8090/company/1001/order
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+
+### Create order from company
+
+POST http://localhost:8090/company/1001/order
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+Content-Type: application/json
+
+{
+  "amount": 10000.0
+}
+
+### Delete company's order
+
+DELETE http://localhost:8090/company/1001/order/2001
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+
+### Any public info
+
+GET http://localhost:8090/info
+
+> {%
+client.test('Public info should be available without authentication', function () {
+    client.assert(response.status === 200, 'Response status is not 200 OK')
+})
+%}
+
+###
+
+GET http://localhost:8090/fhhkj
+
