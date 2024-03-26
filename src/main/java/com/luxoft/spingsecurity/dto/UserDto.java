@@ -2,11 +2,9 @@ package com.luxoft.spingsecurity.dto;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
 
-@AllArgsConstructor
-@Data
+@Value(staticConstructor = "UserDto")
 public class UserDto {
     long id;
     String login;

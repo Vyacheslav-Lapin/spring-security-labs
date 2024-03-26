@@ -1,10 +1,8 @@
 package com.luxoft.spingsecurity.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
 
-@Data
-@AllArgsConstructor
+@Value(staticConstructor = "CompanyDto")
 public class CompanyDto {
     long id;
     String name;

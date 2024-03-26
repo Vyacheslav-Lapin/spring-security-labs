@@ -1,5 +1,7 @@
 package com.luxoft.spingsecurity.service;
 
+import java.util.List;
+
 import com.luxoft.spingsecurity.dto.CompanyDto;
 import com.luxoft.spingsecurity.dto.OrderDto;
 import com.luxoft.spingsecurity.dto.converters.CompanyDtoConverter;
@@ -8,23 +10,23 @@ import com.luxoft.spingsecurity.repository.CompanyRepository;
 import com.luxoft.spingsecurity.repository.OrderRepository;
 import com.luxoft.spingsecurity.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 
 @Service
 @RequiredArgsConstructor
 public class CompanyService {
 
-    private final CompanyRepository companyRepository;
-    private final UserRepository userRepository;
-    private final OrderRepository orderRepository;
+    CompanyRepository companyRepository;
+    UserRepository userRepository;
+    OrderRepository orderRepository;
 
-    private final CompanyDtoConverter companyDtoConverter;
-    private final OrderDtoConverter orderDtoConverter;
+    CompanyDtoConverter companyDtoConverter;
+    OrderDtoConverter orderDtoConverter;
 
     @Transactional(readOnly = true)
     public List<CompanyDto> getAll() {
@@ -35,7 +37,7 @@ public class CompanyService {
 
     @Transactional(readOnly = true)
     public List<CompanyDto> getAllByUserId(long userId) {
-        var user = userRepository.findById(userId)
+        val user = userRepository.findById(userId)
             .orElseThrow(() -> new IllegalArgumentException("User does not exist"));
         return user.getCompanies().stream()
             .map(companyDtoConverter::toDto)

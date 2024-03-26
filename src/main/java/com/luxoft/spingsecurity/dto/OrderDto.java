@@ -1,10 +1,8 @@
 package com.luxoft.spingsecurity.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
 
-@AllArgsConstructor
-@Data
+@Value(staticConstructor = "OrderDto")
 public class OrderDto {
     long id;
     double amount;

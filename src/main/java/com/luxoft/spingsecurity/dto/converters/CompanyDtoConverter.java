@@ -2,24 +2,25 @@ package com.luxoft.spingsecurity.dto.converters;
 
 import com.luxoft.spingsecurity.dto.CompanyDto;
 import com.luxoft.spingsecurity.model.Company;
+
 import org.springframework.stereotype.Component;
+
+import static com.luxoft.spingsecurity.dto.CompanyDto.*;
+import static com.luxoft.spingsecurity.model.Company.*;
 
 @Component
 public class CompanyDtoConverter {
 
     public CompanyDto toDto(Company domain) {
-        return new CompanyDto(domain.getId(), domain.getName());
+        return CompanyDto(domain.getId(), domain.getName());
     }
 
     public Company toDomain(CompanyDto dto) {
-        var domain = new Company();
-        domain.setId(dto.getId());
-        domain.setName(dto.getName());
-        return domain;
+        return Company(dto.getName())
+                   .setId(dto.getId());
     }
 
     public Company toDomain(CompanyDto dto, Company original) {
-        original.setName(dto.getName());
-        return original;
+        return original.setName(dto.getName());
     }
 }

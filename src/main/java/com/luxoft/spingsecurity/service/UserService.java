@@ -1,22 +1,24 @@
 package com.luxoft.spingsecurity.service;
 
+import java.util.List;
+
 import com.luxoft.spingsecurity.dto.UserDto;
 import com.luxoft.spingsecurity.dto.converters.UserDtoConverter;
 import com.luxoft.spingsecurity.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final UserDtoConverter userDtoConverter;
+    UserRepository userRepository;
+    UserDtoConverter userDtoConverter;
 
     @Transactional(readOnly = true)
     public List<UserDto> getAll() {
@@ -34,17 +36,17 @@ public class UserService {
 
     @Transactional
     public UserDto create(UserDto userDto) {
-        var user = userDtoConverter.toDomain(userDto);
-        var withId = userRepository.save(user);
+        val user = userDtoConverter.toDomain(userDto);
+        val withId = userRepository.save(user);
         return userDtoConverter.toDto(withId);
     }
 
     @Transactional
     public UserDto update(UserDto userDto) {
-        var user = userRepository.findById(userDto.getId())
+        val user = userRepository.findById(userDto.getId())
             .orElseThrow(() -> new IllegalArgumentException("User does not exist"));
-        var updated = userDtoConverter.toDomain(userDto, user);
-        var fromDb = userRepository.save(updated);
+        val updated = userDtoConverter.toDomain(userDto, user);
+        val fromDb = userRepository.save(updated);
         return userDtoConverter.toDto(fromDb);
     }
 }

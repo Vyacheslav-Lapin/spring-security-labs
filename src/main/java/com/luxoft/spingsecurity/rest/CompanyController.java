@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CompanyController {
 
-  private final CompanyService companyService;
+  CompanyService companyService;
 
   @GetMapping("/company")
   public List<CompanyDto> getAll() {
