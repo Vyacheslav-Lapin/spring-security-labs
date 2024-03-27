@@ -53,10 +53,10 @@ public class CompanyService {
 
     @Transactional
     public CompanyDto createCompany(CompanyDto newCompany, long userId) {
-        var user = userRepository.findById(userId)
+        val user = userRepository.findById(userId)
             .orElseThrow(() -> new IllegalArgumentException("User does not exist"));
-        var company = companyDtoConverter.toDomain(newCompany);
-        var withId = companyRepository.save(company);
+        val company = companyDtoConverter.toDomain(newCompany);
+        val withId = companyRepository.save(company);
         user.getCompanies().add(company);
         userRepository.save(user);
         return companyDtoConverter.toDto(withId);
@@ -64,16 +64,16 @@ public class CompanyService {
 
     @Transactional
     public CompanyDto updateCompany(CompanyDto companyDto) {
-        var company = companyRepository.findById(companyDto.getId())
+        val company = companyRepository.findById(companyDto.getId())
             .orElseThrow(() -> new IllegalArgumentException("Company does not exist"));
-        var updated = companyDtoConverter.toDomain(companyDto, company);
-        var fromDb = companyRepository.save(updated);
+        val updated = companyDtoConverter.toDomain(companyDto, company);
+        val fromDb = companyRepository.save(updated);
         return companyDtoConverter.toDto(fromDb);
     }
 
     @Transactional(readOnly = true)
     public List<OrderDto> getCompanyOrders(long companyId) {
-        var company = companyRepository.findById(companyId)
+        val company = companyRepository.findById(companyId)
             .orElseThrow(() -> new IllegalArgumentException("Company does not exist"));
         return company.getOrders().stream()
             .map(orderDtoConverter::toDto)
@@ -82,16 +82,18 @@ public class CompanyService {
 
     @Transactional
     public OrderDto createOrder(long companyId, OrderDto orderDto) {
-        var company = companyRepository.findById(companyId)
+        val company = companyRepository.findById(companyId)
             .orElseThrow(() -> new IllegalArgumentException("Company does not exist"));
-        var order = orderDtoConverter.toDomain(orderDto, company);
-        var withId = orderRepository.save(order);
+        val order = orderDtoConverter.toDomain(orderDto, company);
+        val withId = orderRepository.save(order);
         return orderDtoConverter.toDto(withId);
     }
 
     @Transactional
-    public void deleteOrder(long companyId, long orderId) {
-        // Yes, companyId is not used now
+    public void deleteOrder(
+        @SuppressWarnings("unused") // Yes, companyId is not used now
+        long companyId,
+        long orderId) {
         orderRepository.deleteById(orderId);
     }
 }

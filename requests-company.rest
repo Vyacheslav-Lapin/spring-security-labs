@@ -79,8 +79,3 @@ client.test('Public info should be available without authentication', function (
     client.assert(response.status === 200, 'Response status is not 200 OK')
 })
 %}
-
-###
-
-GET http://localhost:8090/fhhkj
-

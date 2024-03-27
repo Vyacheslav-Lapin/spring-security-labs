@@ -34,8 +34,8 @@ public class CompanyController {
     return companyService.getAllByUserId(userId);
   }
 
-  @GetMapping("/company/{id}")
-  public CompanyDto getById(@PathVariable("id") long companyId) {
+  @GetMapping("/company/{companyId}")
+  public CompanyDto getById(@PathVariable long companyId) {
     return companyService.getById(companyId);
   }
 
@@ -52,16 +52,15 @@ public class CompanyController {
     return companyService.updateCompany(companyDto);
   }
 
-  @GetMapping("/company/{id}/order")
-  public List<OrderDto> getCompanyOrders(@PathVariable("id") long companyId) {
+  @GetMapping("/company/{companyId}/order")
+  public List<OrderDto> getCompanyOrders(@PathVariable long companyId) {
     return companyService.getCompanyOrders(companyId);
   }
 
   @PostMapping("/company/{id}/order")
   public OrderDto createOrder(
       @PathVariable("id") long companyId,
-      @RequestBody OrderDto orderDto
-  ) {
+      @RequestBody OrderDto orderDto) {
     return companyService.createOrder(companyId, orderDto);
   }
 
@@ -69,8 +68,7 @@ public class CompanyController {
   @DeleteMapping("/company/{cid}/order/{oid}")
   public void deleteOrder(
       @PathVariable("cid") long companyId,
-      @PathVariable("oid") long orderId
-  ) {
+      @PathVariable("oid") long orderId) {
     companyService.deleteOrder(companyId, orderId);
   }
 }
